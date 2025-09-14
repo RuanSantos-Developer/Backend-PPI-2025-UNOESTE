@@ -1,0 +1,33 @@
+{
+  "name": "backend-ppi-2025-unoeste",
+  "version": "1.0.0",
+  "description": "Backend Site de Cursos",
+  "keywords": [
+    "Node",
+    "Backend",
+    "Curso",
+    "Site",
+    "Vendas",
+    "Faculdade"
+  ],
+  "homepage": "https://github.com/RuanSantos-Developer/Backend-PPI-2025-UNOESTE#readme",
+  "bugs": {
+    "url": "https://github.com/RuanSantos-Developer/Backend-PPI-2025-UNOESTE/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuanSantos-Developer/Backend-PPI-2025-UNOESTE.git"
+  },
+  "license": "ISC",
+  "author": "Ruan Oliveira dos Santos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "mysql2": "^3.14.5"
+  }
+}
