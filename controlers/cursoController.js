@@ -38,26 +38,68 @@ export default class CursosController {
     
     }
 
-    // Método para consultar cursos GET
-    consultar(req, res){
-        if(req.method === 'GET'){
-            const curso = new Cursos();
-            curso.consultar().then((listacursos)=>{
-                const listaJSON = listacursos.map(curso => curso.toJSON());
-                res.status(200).json({
-                    status: true,
-                    "cursos": listaJSON
-                });
-            }).catch((err)=>{
-                res.status(500).json({
-                    status: false,
-                    "message": 'Erro ao consultar os cursos',
-                    "error": err.message
-                });
+// Método para consultar cursos GET
+// Método para consultar cursos GET
+consultar(req, res) {
+    if (req.method === 'GET') {
+
+    const nome = req.params.nome;
+    const curso = new Cursos();
+    if (nome){
+
+        curso.consultarNome(nome)
+        .then((listaCursos)=>{
+            if(listaCursos.length > 0){
+
+            res.status(200).json({
+                status: true,
+                "message": 'Curso consultado com sucesso',
+                "cursos": listaCursos
             });
-        }
+            }
+        })
+
+        .catch((err)=>{
+            res.status(500).json({
+                status: false,
+                "message": 'Erro ao consultar o curso',
+                "error": err.message
+            });
+        });
 
     }
+    else{
+
+        curso.consultar()
+         .then((listaCursos)=>{
+            res.status(200).json({
+                status: true,
+                "message": 'Cursos consultados com sucesso',
+                "cursos": listaCursos
+            });
+         })
+        .catch((err)=>{
+            res.status(500).json({
+                status: false,
+                "message": 'Erro ao consultar os cursos',
+                "error": err.message
+            });
+        });
+
+    }
+
+
+           
+}
+else{
+    res.status(400).json({
+        status: false,
+        "message": 'Requisição inválida'
+    });
+}
+}
+
+
 
     // Método para atualizar um curso PUT
     atualizar(req, res){
@@ -102,23 +144,40 @@ export default class CursosController {
         if(req.method === 'DELETE'){
         const nome = req.params.nome;
         if(nome){
-            const curso = new Cursos(nome);
-            curso.deletar().then(()=>{
-                res.status(200).json({
-                    status: true,
-                    "message": 'Curso deletado com sucesso'
-                });
-            }).catch((err)=>{
-                res.status(400).json({
+             const curso = new Cursos();
+            curso.consultarNome(nome)
+            .then((lista) => {
+                const curso = lista[0];
+                if (curso) {
+                    curso.deletar()
+                        .then(() => {
+                            res.status(200).json({
+                                status: true,
+                                message: 'Curso deletado com sucesso'
+                            });
+                        })
+
+                } else {
+                    res.status(404).json({
+                        status: false,
+                        message: 'Curso não encontrado'
+                    });
+                }
+            })
+            .catch((err) => {
+                res.status(500).json({
                     status: false,
-                    "message": 'Erro ao deletar o curso',
-                    "error": err.message
+                    message: 'Erro ao consultar o curso',
+                    error: err.message
                 });
-            }); 
+            });
         }
+        else {
+            res.status(400).json({
+                status: false,
+                message: 'Requisição inválida'
+            });
         }
-
-    };
-
-
-    };
+    }
+}
+};

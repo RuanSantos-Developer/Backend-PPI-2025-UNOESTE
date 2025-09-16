@@ -20,25 +20,46 @@ export default class CursoDAO {
 
     };
 
-    async consultar(){
-        const conexao = await conectar();
-        const [linhas] = await conexao.query('SELECT * FROM cursos');
-        conexao.release();
+async consultar() {
+    const conexao = await conectar();
+    const sql = "SELECT * FROM cursos";
+    const [linhas] = await conexao.query(sql);
+    conexao.release();
+
+    let listaCursos = [];
+    for (let linha of linhas) {
+        const curso = new Cursos(
+            linha.nome,
+            linha.descricao,
+            parseFloat(linha.valor),
+            linha.duracao
+        );
+        listaCursos.push(curso);
+    }
+    return listaCursos;
+}
 
 
-        const listacursos = [];
+async consultarNome(nome) {
+    nome  = nome || "";
+    const conexao = await conectar();
+    const sql = "SELECT * FROM cursos WHERE nome LIKE ?";
+    const [linhas] = await conexao.query(sql, [`%${nome}%`]);
+    conexao.release();
 
-        for(const linha of linhas){
-            const curso = new Cursos(
-                linha.nome,
-                linha.descricao,
-                linha.valor,
-                linha.duracao
-            );
-            listacursos.push(curso);
-        }
+    let listaCursos = [];
+    for (let linha of linhas) {
+        const curso = new Cursos(
+            linha.nome,
+            linha.descricao,
+            parseFloat(linha.valor),
+            linha.duracao
+        );
+        listaCursos.push(curso);
+    }
+    return listaCursos;
+}
 
-    };
 
     async atualizar(cursos){
 
