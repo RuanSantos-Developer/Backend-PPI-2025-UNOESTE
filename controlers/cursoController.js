@@ -6,12 +6,13 @@ export default class CursosController {
     gravar(req, res){
         if(req.method === 'POST' && req.is('application/json')){
             const dados = req.body;
-            if(dados.nome && dados.descricao && dados.valor && dados.duracao){
+            if(dados.nome && dados.descricao && dados.valor && dados.duracao && dados.instrutor){
                 const curso = new Cursos(
                     dados.nome,
                     dados.descricao,
                     parseFloat(dados.valor),
-                    dados.duracao
+                    dados.duracao,
+                    dados.instrutor
             );
             curso.gravar().then(()=>{
                 res.status(200).json({
@@ -38,7 +39,6 @@ export default class CursosController {
     
     }
 
-// Método para consultar cursos GET
 // Método para consultar cursos GET
 consultar(req, res) {
     if (req.method === 'GET') {
@@ -107,12 +107,13 @@ else{
          if((req.method === 'PUT' || req.method === 'PATCH' ) && req.is('application/json')){
             const dados = req.body;
             const nome = req.params.nome;
-            if(nome && dados.descricao && dados.valor && dados.duracao){
+            if(nome && dados.descricao && dados.valor && dados.duracao && dados.instrutor){
                 const curso = new Cursos(
                     dados.nome,
                     dados.descricao,
                     parseFloat(dados.valor),
-                    dados.duracao
+                    dados.duracao,
+                    dados.instrutor
             );
             curso.atualizar().then(()=>{
                 res.status(200).json({
@@ -167,7 +168,7 @@ else{
             .catch((err) => {
                 res.status(500).json({
                     status: false,
-                    message: 'Erro ao consultar o curso',
+                    message: 'Erro ao deletar o curso',
                     error: err.message
                 });
             });

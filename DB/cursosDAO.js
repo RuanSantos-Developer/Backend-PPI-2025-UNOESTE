@@ -7,13 +7,15 @@ export default class CursoDAO {
         if(cursos instanceof Cursos){
             const conexao = await conectar();
 
-            const sql = 'INSERT INTO cursos (nome, descricao, valor, duracao) VALUES (?, ?, ?, ?)';
+            const sql = 'INSERT INTO cursos (nome, descricao, valor, duracao, instrutor) VALUES (?, ?, ?, ?, ?)';
 
             const parametros = [
                 cursos.nome, 
                 cursos.descricao, 
                 cursos.valor, 
-                cursos.duracao];
+                cursos.duracao,
+                cursos.instrutor,
+                ];
 
             await conexao.execute(sql, parametros);
         }
@@ -32,7 +34,8 @@ async consultar() {
             linha.nome,
             linha.descricao,
             parseFloat(linha.valor),
-            linha.duracao
+            linha.duracao,
+            linha.instrutor,
         );
         listaCursos.push(curso);
     }
@@ -53,7 +56,8 @@ async consultarNome(nome) {
             linha.nome,
             linha.descricao,
             parseFloat(linha.valor),
-            linha.duracao
+            linha.duracao,
+            linha.instrutor
         );
         listaCursos.push(curso);
     }
@@ -66,13 +70,15 @@ async consultarNome(nome) {
         if(cursos instanceof Cursos){
             const conexao = await conectar();
 
-            const sql = 'UPDATE cursos SET nome = ?, descricao = ?, valor = ?, duracao = ? WHERE id = ?';
+            const sql = 'UPDATE cursos SET nome = ?, descricao = ?, valor = ?, duracao = ?, instrutor = ? WHERE id = ?';
             const parametros = [
                 cursos.nome, 
                 cursos.descricao, 
                 cursos.valor, 
                 cursos.duracao,
-                cursos.id];
+                cursos.instrutor,
+                cursos.id
+            ];
             await conexao.execute(sql, parametros);
 
             conexao.release();

@@ -7,14 +7,18 @@ export default class Cursos {
     #descricao
     #valor
     #duracao
+    #instrutor
 
-    constructor( nome="", descricao="", valor=0, duracao="", id=0){
-        this .#id = id
+    constructor( nome="", descricao="", valor=0, duracao="", id=0, instrutor="") {
         this.#nome = nome
         this.#descricao = descricao
         this.#valor = valor
         this.#duracao = duracao
+        this.#id = id
+        this.#instrutor = instrutor
     }
+
+
 
         get id() {
         return this.#id
@@ -56,13 +60,21 @@ export default class Cursos {
         this.#duracao = duracao
     }
 
+        get instrutor() {
+        return this.#instrutor
+    }
+    set instrutor(instrutor) {
+        this.#instrutor = instrutor
+    }
+
 toString() {
     return `
     ID: ${this.#id}\n
     Nome: ${this.#nome}\n
     Descrição: ${this.#descricao}\n
     Valor: ${this.#valor}\n
-    Duração: ${this.#duracao}
+    Duração: ${this.#duracao}\n
+    Instrutor: ${this.#instrutor}\n
     `
 }
 
@@ -72,7 +84,8 @@ toJSON() {
         nome: this.#nome,
         descricao: this.#descricao,
         valor: this.#valor,
-        duracao: this.#duracao
+        duracao: this.#duracao,
+        instrutor: this.#instrutor
     }
 }
 
