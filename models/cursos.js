@@ -9,14 +9,15 @@ export default class Cursos {
     #duracao
     #instrutor
 
-    constructor( nome="", descricao="", valor=0, duracao="", id=0, instrutor="") {
-        this.#nome = nome
-        this.#descricao = descricao
-        this.#valor = valor
-        this.#duracao = duracao
-        this.#id = id
-        this.#instrutor = instrutor
-    }
+   constructor(id=0, nome="", descricao="", valor=0, duracao="", instrutor="") {
+    this.#id = id
+    this.#nome = nome
+    this.#descricao = descricao
+    this.#valor = valor
+    this.#duracao = duracao
+    this.#instrutor = instrutor
+}
+
 
 
 

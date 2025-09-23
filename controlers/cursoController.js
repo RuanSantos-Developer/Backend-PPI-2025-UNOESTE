@@ -13,7 +13,7 @@ export default class CursosController {
                     parseFloat(dados.valor),
                     dados.duracao,
                     dados.instrutor
-            );
+                );
             curso.gravar().then(()=>{
                 res.status(200).json({
                     status: true,

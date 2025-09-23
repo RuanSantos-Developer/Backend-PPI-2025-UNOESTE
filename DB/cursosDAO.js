@@ -31,6 +31,7 @@ async consultar() {
     let listaCursos = [];
     for (let linha of linhas) {
         const curso = new Cursos(
+            linha.id,
             linha.nome,
             linha.descricao,
             parseFloat(linha.valor),
@@ -53,6 +54,7 @@ async consultarNome(nome) {
     let listaCursos = [];
     for (let linha of linhas) {
         const curso = new Cursos(
+            linha.id,
             linha.nome,
             linha.descricao,
             parseFloat(linha.valor),
